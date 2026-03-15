@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memento Consultancy – Søren Poulsen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #1a1a18;
+      --stone:   #4a4a46;
+      --ash:     #8a8a84;
+      --parchment: #f5f3ee;
+      --warm:    #ede9e1;
+      --accent:  #2d5a4e;
+      --accent-light: #3d7a6a;
+      --line:    rgba(26,26,24,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--parchment);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(245,243,238,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 4rem 7rem 5rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.06;
+      color: var(--ink);
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--stone);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      background: var(--accent);
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: background 0.25s, gap 0.25s;
+      width: fit-content;
+    }
+
+    .hero-cta:hover { background: var(--accent-light); gap: 1.1rem; }
+    .hero-cta svg { transition: transform 0.25s; }
+    .hero-cta:hover svg { transform: translateX(3px); }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 5rem 4rem;
+      background: var(--warm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: 'M';
+      position: absolute;
+      top: -0.1em;
+      right: -0.05em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28vw;
+      font-weight: 300;
+      color: rgba(26,26,24,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: auto;
+    }
+
+    .hero-stat {
+      background: var(--parchment);
+      padding: 1.8rem;
+    }
+
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-stat-label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--stone);
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 7rem 5rem; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .divider {
+      width: 3rem;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--ink);
+      color: var(--parchment);
+    }
+
+    #services .section-label { color: #7aaa9a; }
+    #services .section-title { color: var(--parchment); }
+    #services .divider { background: #7aaa9a; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 4rem;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 2.8rem 2.4rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--accent-light);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s;
+    }
+
+    .service-card:hover { background: rgba(255,255,255,0.07); }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-icon {
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-bottom: 1.6rem;
+      opacity: 0.8;
+    }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--accent-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--parchment);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(245,243,238,0.6);
+      line-height: 1.8;
+    }
+
+    .service-card--featured {
+      background: rgba(61,122,106,0.15);
+      border-color: rgba(122,170,154,0.25);
+    }
+
+    .service-card--featured .service-title {
+      font-size: 1.9rem;
+    }
+
+    .service-card--featured .service-desc {
+      color: rgba(245,243,238,0.75);
+    }
+
+    .service-tag {
+      display: inline-block;
+      margin-top: 1.6rem;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #7aaa9a;
+      border: 1px solid rgba(122,170,154,0.4);
+      padding: 0.3rem 0.8rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      padding: 7rem 5rem;
+    }
+
+    .about-body {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.9;
+    }
+
+    .about-body p + p { margin-top: 1.2rem; }
+
+    .about-right { position: relative; }
+
+    .about-card {
+      background: var(--warm);
+      border: 1px solid var(--line);
+      padding: 3rem;
+    }
+
+    .about-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+
+    .about-role {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .about-detail-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.88rem;
+      color: var(--stone);
+    }
+
+    .about-detail-item span:first-child {
+      font-weight: 500;
+      color: var(--accent);
+      min-width: 5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-top: 0.15rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--warm);
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      margin-top: 4rem;
+    }
+
+    .contact-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.9;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .contact-item-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+
+    .contact-item-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .contact-item-value a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-item-value a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--ash);
+    }
+
+    footer span { letter-spacing: 0.06em; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--line); }
+      .hero-right { padding: 3rem 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      section { padding: 5rem 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Memento</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up">Memento Consultancy</div>
+    <h1 class="hero-title fade-up" style="transition-delay:0.1s">
+      Where <em>research</em><br>meets practice
+    </h1>
+    <p class="hero-sub fade-up" style="transition-delay:0.2s">
+      Independent consultancy bridging industry and academia — offering strategic insight in research collaboration, educational outreach, and applied AI.
+    </p>
+    <a href="#contact" class="hero-cta fade-up" style="transition-delay:0.3s">
+      Get in touch
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-grid fade-up" style="transition-delay:0.4s">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Core service areas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">AU</div>
+        <div class="hero-stat-label">Aarhus University affiliation</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">DK</div>
+        <div class="hero-stat-label">Based in Aarhus, Denmark</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">AI</div>
+        <div class="hero-stat-label">Applied & advisory</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label fade-up">What I do</div>
+  <h2 class="section-title fade-up" style="transition-delay:0.1s">Three areas of expertise</h2>
+  <div class="divider fade-up" style="transition-delay:0.15s"></div>
+
+  <div class="services-grid">
+    <div class="service-card service-card--featured fade-up" style="transition-delay:0.2s">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#7aaa9a" stroke-width="1.5">
+        <path d="M8 36l8-14 8 8 8-16 8 10"/><circle cx="8" cy="36" r="2"/><circle cx="40" cy="24" r="2"/>
+        <path d="M4 44h40"/>
+      </svg>
+      <div class="service-num">01</div>
+      <h3 class="service-title">Educational Outreach & Transition Programs</h3>
+      <p class="service-desc">Designing and facilitating programs that ease the transition from upper secondary school to university. Helping institutions attract, engage and retain the next generation of students in STEM and beyond — turning curiosity into commitment.</p>
+      <div class="service-tag">Primary focus</div>
+    </div>
+
+    <div class="service-card fade-up" style="transition-delay:0.3s">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#7aaa9a" stroke-width="1.5">
+        <circle cx="24" cy="24" r="10"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M9.4 9.4l4.2 4.2M34.4 34.4l4.2 4.2M9.4 38.6l4.2-4.2M34.4 13.6l4.2-4.2"/>
+      </svg>
+      <div class="service-num">02</div>
+      <h3 class="service-title">Industry & Research Consulting</h3>
+      <p class="service-desc">Bridging the gap between academic research and industrial application. Strategic advice for companies seeking to engage with university research environments, and for research groups looking to increase real-world impact.</p>
+    </div>
+
+    <div class="service-card fade-up" style="transition-delay:0.4s">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#7aaa9a" stroke-width="1.5">
+        <rect x="6" y="14" width="36" height="24" rx="2"/><path d="M16 14V10a2 2 0 012-2h12a2 2 0 012 2v4"/><path d="M24 26v4M20 28h8"/>
+      </svg>
+      <div class="service-num">03</div>
+      <h3 class="service-title">AI Advisory for Startups</h3>
+      <p class="service-desc">Practical, no-nonsense AI guidance for small startups and entrepreneurs. From identifying where AI can genuinely add value, to selecting tools, building prototypes, and navigating the landscape without the hype.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <div class="section-label fade-up">About</div>
+    <h2 class="section-title fade-up" style="transition-delay:0.1s">A practitioner at the intersection</h2>
+    <div class="divider fade-up" style="transition-delay:0.15s"></div>
+    <div class="about-body fade-up" style="transition-delay:0.2s">
+      <p>Memento Consultancy is the independent practice of Søren Poulsen, a computer scientist and educator based in Aarhus, Denmark, with a long-standing connection to Aarhus University.</p>
+      <p>My work sits at the intersection of research, education and technology — a space where curiosity, rigour and real-world pragmatism all need to coexist. I work with companies seeking academic partnerships, with institutions building better bridges to their future students, and with small ventures figuring out what AI can actually do for them.</p>
+      <p>Engagements are kept deliberately small and personal. You work directly with me — not a team of junior consultants — which means focused attention, honest advice, and no unnecessary overhead.</p>
+    </div>
+  </div>
+  <div class="about-right fade-up" style="transition-delay:0.3s">
+    <div class="about-card">
+      <div class="about-name">Søren Poulsen</div>
+      <div class="about-role">Founder & Principal Consultant</div>
+      <div class="about-detail">
+        <div class="about-detail-item">
+          <span>Base</span>
+          <span>Aarhus, Denmark</span>
+        </div>
+        <div class="about-detail-item">
+          <span>Affiliation</span>
+          <span>Aarhus University, Department of Computer Science</span>
+        </div>
+        <div class="about-detail-item">
+          <span>Languages</span>
+          <span>Danish, English, German</span>
+        </div>
+        <div class="about-detail-item">
+          <span>Focus</span>
+          <span>Research–industry collaboration, educational transition, applied AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label fade-up">Contact</div>
+  <h2 class="section-title fade-up" style="transition-delay:0.1s">Let's talk</h2>
+  <div class="divider fade-up" style="transition-delay:0.15s"></div>
+  <div class="contact-grid">
+    <p class="contact-intro fade-up" style="transition-delay:0.2s">
+      Whether you have a specific challenge in mind or are simply exploring possibilities, I welcome an informal conversation. Reach out by email or phone — I aim to respond within one working day.
+    </p>
+    <div class="contact-details fade-up" style="transition-delay:0.3s">
+      <div class="contact-item">
+        <span class="contact-item-label">Email</span>
+        <span class="contact-item-value"><a href="/cdn-cgi/l/email-protection#e1918e948d92848fa18292cf8094cf858a"><span class="__cf_email__" data-cfemail="fa8a958f96899f94ba9989d49b8fd49e91">[email&#160;protected]</span></a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Phone</span>
+        <span class="contact-item-value"><a href="tel:+4520951282">+45 2095 1282</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Location</span>
+        <span class="contact-item-value">Aarhus, Denmark</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Memento Consultancy — Søren Poulsen</span>
+  <span>CVR 30389808 &nbsp;·&nbsp; Aarhus, Denmark</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserv
