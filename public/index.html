@@ -231,13 +231,13 @@
 
     /* ── SERVICES ── */
     #services {
-      background: var(--ink);
-      color: var(--parchment);
+      background: var(--warm);
+      color: var(--ink);
     }
 
-    #services .section-label { color: #7aaa9a; }
-    #services .section-title { color: var(--parchment); }
-    #services .divider { background: #7aaa9a; }
+    #services .section-label { color: var(--accent); }
+    #services .section-title { color: var(--ink); }
+    #services .divider { background: var(--accent); }
 
     .services-grid {
       display: grid;
@@ -247,8 +247,8 @@
     }
 
     .service-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--line);
       padding: 2.8rem 2.4rem;
       transition: background 0.3s;
       position: relative;
@@ -260,13 +260,13 @@
       position: absolute;
       bottom: 0; left: 0;
       width: 100%; height: 2px;
-      background: var(--accent-light);
+      background: var(--accent);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.35s;
     }
 
-    .service-card:hover { background: rgba(255,255,255,0.07); }
+    .service-card:hover { background: rgba(255,255,255,0.9); }
     .service-card:hover::after { transform: scaleX(1); }
 
     .service-icon {
@@ -279,7 +279,7 @@
     .service-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.85rem;
-      color: var(--accent-light);
+      color: var(--accent);
       letter-spacing: 0.1em;
       margin-bottom: 0.8rem;
     }
@@ -288,7 +288,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.6rem;
       font-weight: 400;
-      color: var(--parchment);
+      color: var(--ink);
       margin-bottom: 1rem;
       line-height: 1.2;
     }
@@ -296,13 +296,13 @@
     .service-desc {
       font-size: 0.9rem;
       font-weight: 300;
-      color: rgba(245,243,238,0.6);
+      color: var(--stone);
       line-height: 1.8;
     }
 
     .service-card--featured {
-      background: rgba(61,122,106,0.15);
-      border-color: rgba(122,170,154,0.25);
+      background: rgba(45,90,78,0.07);
+      border-color: rgba(45,90,78,0.2);
     }
 
     .service-card--featured .service-title {
@@ -310,7 +310,7 @@
     }
 
     .service-card--featured .service-desc {
-      color: rgba(245,243,238,0.75);
+      color: var(--stone);
     }
 
     .service-tag {
@@ -320,8 +320,8 @@
       font-weight: 500;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #7aaa9a;
-      border: 1px solid rgba(122,170,154,0.4);
+      color: var(--accent);
+      border: 1px solid rgba(45,90,78,0.3);
       padding: 0.3rem 0.8rem;
     }
 
@@ -633,7 +633,7 @@
 
   <div class="services-grid">
     <div class="service-card service-card--featured fade-up" style="transition-delay:0.2s">
-      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#7aaa9a" stroke-width="1.5">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="1.5">
         <path d="M8 36l8-14 8 8 8-16 8 10"/><circle cx="8" cy="36" r="2"/><circle cx="40" cy="24" r="2"/>
         <path d="M4 44h40"/>
       </svg>
@@ -644,7 +644,7 @@
     </div>
 
     <div class="service-card fade-up" style="transition-delay:0.3s">
-      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#7aaa9a" stroke-width="1.5">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="1.5">
         <circle cx="24" cy="24" r="10"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M9.4 9.4l4.2 4.2M34.4 34.4l4.2 4.2M9.4 38.6l4.2-4.2M34.4 13.6l4.2-4.2"/>
       </svg>
       <div class="service-num">02</div>
@@ -653,7 +653,7 @@
     </div>
 
     <div class="service-card fade-up" style="transition-delay:0.4s">
-      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#7aaa9a" stroke-width="1.5">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="1.5">
         <rect x="6" y="14" width="36" height="24" rx="2"/><path d="M16 14V10a2 2 0 012-2h12a2 2 0 012 2v4"/><path d="M24 26v4M20 28h8"/>
       </svg>
       <div class="service-num">03</div>
